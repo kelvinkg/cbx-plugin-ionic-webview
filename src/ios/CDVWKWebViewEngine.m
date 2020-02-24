@@ -378,17 +378,19 @@ NSTimer *timer;
 
 -(void)keyboardWillHide
 {
-    if (@available(iOS 12.0, *)) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
-        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    if (!CGPointEqualToPoint(self.lastContentOffset, self.webView.scrollView.contentOffset)) {
+        [self.webView.scrollView setContentOffset:self.lastContentOffset];
+        [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+     if (!CGPointEqualToPoint(self.lastContentOffset, self.webView.scrollView.contentOffset)) {
+        [self.webView.scrollView setContentOffset:self.lastContentOffset];
+        [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }
 }
 
 -(void)keyboardWillShow
 {
-    if (timer != nil) {
-        [timer invalidate];
-    }
+    self.lastContentOffset = self.webView.scrollView.contentOffset;
 }
 
 -(void)keyboardDisplacementFix
