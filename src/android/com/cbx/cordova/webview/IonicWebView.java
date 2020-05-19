@@ -33,6 +33,8 @@ public class IonicWebView extends CordovaPlugin  {
       editor.putString(CDV_SERVER_PATH, path);
       editor.apply();
       return true;
+    } else if (action.equals("enableScrollFix")) {
+      return true;
     }
     return false;
   }

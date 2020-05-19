@@ -163,4 +163,8 @@ public class IonicWebViewEngine extends SystemWebViewEngine {
   public String getServerBasePath() {
     return this.localServer.getBasePath();
   }
+
+  public void enableScrollFix() {
+    // do nothing
+  }
 }

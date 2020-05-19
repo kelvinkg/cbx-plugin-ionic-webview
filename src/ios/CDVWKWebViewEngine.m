@@ -388,10 +388,13 @@ NSTimer *timer;
         [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }
     */
-    if (@available(iOS 12.0, *)) {
-        NSLog(@"%@", @"HERE");
-        timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
-        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    if (self.scrollFix) {
+        if (@available(iOS 12.0, *)) {
+            NSLog(@"%@", @"HERE");
+            timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
+            [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        }
+        slef.scrollFix = false;
     }
 }
 
@@ -805,6 +808,12 @@ NSTimer *timer;
     [userDefaults setObject:[self.basePath lastPathComponent] forKey:CDV_SERVER_PATH];
     [userDefaults synchronize];
 }
+
+-(void)enableScrollFix:(CDVInvokedUrlCommand*)command
+{
+    self.scrollFix = true;
+}
+
 
 @end
 
