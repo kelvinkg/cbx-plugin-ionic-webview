@@ -25,7 +25,7 @@
 @property (nonatomic, strong, readonly) id <WKUIDelegate> uiDelegate;
 @property (nonatomic, strong) NSString * basePath;
 @property (nonatomic) CGPoint lastContentOffset;
-@property (nonatomic, strong) BOOL enableFix;
+@property (nonatomic) BOOL scrollFix;
 
 -(void)setServerBasePath:(CDVInvokedUrlCommand*)command;
 -(void)getServerBasePath:(CDVInvokedUrlCommand*)command;

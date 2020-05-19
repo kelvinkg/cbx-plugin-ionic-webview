@@ -390,11 +390,10 @@ NSTimer *timer;
     */
     if (self.scrollFix) {
         if (@available(iOS 12.0, *)) {
-            NSLog(@"%@", @"HERE");
             timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
             [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
         }
-        slef.scrollFix = false;
+        self.scrollFix = false;
     }
 }
 
