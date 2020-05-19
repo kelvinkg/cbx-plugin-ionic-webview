@@ -382,15 +382,25 @@ NSTimer *timer;
         [self.webView.scrollView setContentOffset:self.lastContentOffset];
         [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }
-     if (!CGPointEqualToPoint(self.lastContentOffset, self.webView.scrollView.contentOffset)) {
+    /*
+    if (!CGPointEqualToPoint(self.lastContentOffset, self.webView.scrollView.contentOffset)) {
         [self.webView.scrollView setContentOffset:self.lastContentOffset];
         [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+    */
+    if (@available(iOS 12.0, *)) {
+        NSLog(@"%@", @"HERE");
+        timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
 }
 
 -(void)keyboardWillShow
 {
     self.lastContentOffset = self.webView.scrollView.contentOffset;
+    if (timer != nil) {
+        [timer invalidate];
+    }
 }
 
 -(void)keyboardDisplacementFix
@@ -399,8 +409,8 @@ NSTimer *timer;
     [UIView animateWithDuration:.25 animations:^{
         self.webView.scrollView.contentOffset = CGPointMake(0, 0);
     }];
-
 }
+
 - (BOOL)shouldReloadWebView
 {
     WKWebView* wkWebView = (WKWebView*)_engineWebView;
